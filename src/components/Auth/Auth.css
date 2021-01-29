@@ -1,0 +1,21 @@
+.outer{
+   margin-top: 2rem;
+}
+
+.inner{
+    width: 100vh;
+   padding: 0.5rem;
+    border: 1px solid lightgray;
+   border-radius: 3%;
+}
+
+.tab{
+    margin: 2%;
+    
+}
+.form{
+    margin:2%;
+    padding: 2rem;
+    width: 100vh; 
+    text-align: left;
+}
