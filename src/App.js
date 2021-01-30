@@ -1,6 +1,8 @@
 import React,{Fragment,useEffect} from 'react';
 import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'
 import {Provider} from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
+import {Spinner} from 'react-bootstrap'
 
 import Home from './components/Home/Home';
 import Alert from './components/Alert/Alert'
@@ -10,21 +12,21 @@ import Landing from './components/Landing/Landing';
 import NavigationBar from './components/NavigationBar';
 import Settings from './components/Settings/Settings';
 
-
-import store from './store'
+import {store,persistor} from './store'
 import setAuthToken from './utils/setAuthToken';
 import { loadUser } from './actions/auth';
 
-function App() {
+function App(){
 	if(localStorage.getItem('token')){
 		setAuthToken(localStorage.getItem('token'))
    }
-	useEffect(() => {
+	/* useEffect(() => {
        store.dispatch(loadUser());
-	})
+	}) */
   return (
 	  <Provider store={store}>
-            <Router>
+		   <PersistGate loading={<Spinner size={30} />} persistor={persistor}>
+            <Router >
 				<Fragment>
 					<NavigationBar />
 					<section className="container" >
@@ -39,6 +41,7 @@ function App() {
 					</section>
 				</Fragment>
 			</Router>
+			</PersistGate>
 	 </Provider>
   );
 }

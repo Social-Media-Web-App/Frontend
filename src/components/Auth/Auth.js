@@ -5,16 +5,16 @@ import {connect} from 'react-redux'
 import './Auth.css'
 import {register,login} from '../../actions/auth'
 import {setAlert} from '../../actions/alert'
-import {Redirect} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 
 const Auth = ({setAlert,register,login,isAuthenticated}) => {
-    const onsubmit = (type,name,email,password) => {
+    const onsubmit = (type,name,email,password,image) => {
           if(type === 'register'){
                 if(name === '' || email === '' || password === '' ){
                     setAlert({msg:'All fields are Necessary.',alertType:'danger'});
                 }
                 else{
-                    register({name,email,password})
+                    register({name,email,password,image})
                 }
            }
            else if(type === 'login'){
@@ -26,9 +26,12 @@ const Auth = ({setAlert,register,login,isAuthenticated}) => {
                 }
            }
     } 
+
+    let history = useHistory();
     if(isAuthenticated){
-       return <Redirect to="/home" />
-    }
+        history.push('/home');
+      }
+    
     return (
             <center className="outer">
             <div className="inner">

@@ -4,7 +4,6 @@ import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 
 const Home = ({isAuthenticated}) => {
-  console.log('isAuthenticated :',isAuthenticated);
     if(!isAuthenticated){
         return <Redirect to='/' />
       }

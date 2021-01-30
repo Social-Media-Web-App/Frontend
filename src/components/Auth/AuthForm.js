@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import {Form,Button,InputGroup,FormControl} from 'react-bootstrap'
+import {Form,Button,InputGroup,FormControl,Card} from 'react-bootstrap'
 import {BiText} from 'react-icons/bi';
 import {RiLockPasswordLine,RiEyeLine} from 'react-icons/ri'
 
@@ -11,7 +11,7 @@ const AuthForm = ({type,onsubmit}) => {
 
     return (
         <div className="d-flex justify-content-center">
-            <Form className="form" > 
+            <Form className="form"> 
             {
                 type === 'register'?
                 <InputGroup className="mb-3">

@@ -1,11 +1,22 @@
 import {createStore,applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import reducers from './reducers'
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 const initialState = {};
 
+const persistConfig = {
+    key: 'auth',
+    storage: storage,
+    whitelist: ['auth'] 
+  };
+
+const pReducer = persistReducer(persistConfig, reducers);
 const middleware = [thunk];
 
-const store = createStore(reducers,initialState,applyMiddleware(...middleware));
+const store = createStore(pReducer,initialState,applyMiddleware(...middleware));
 
-export default store;
+const persistor = persistStore(store);
+
+export  { persistor, store };

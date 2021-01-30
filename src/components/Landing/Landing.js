@@ -1,10 +1,17 @@
 import React from 'react';
 import {Jumbotron,Button} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {useHistory} from 'react-router-dom'
 
 import './Landing.css'
 
-const Landing = () => {
+const Landing = ({isAuthenticated}) => {
+    let history = useHistory();
+    if(isAuthenticated){
+        history.push('/home');
+    }
+    
     return (
         <center className="landing">
             <Jumbotron>
@@ -25,4 +32,10 @@ const Landing = () => {
     );
 }
 
-export default Landing;
+const mapStateToProps = (state) => {
+    return{
+        isAuthenticated:state.auth.isAuthenticated
+    }
+}
+
+export default connect(mapStateToProps,{})(Landing);

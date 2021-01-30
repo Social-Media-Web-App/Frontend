@@ -3,8 +3,9 @@ import {setAlert} from './alert'
 import {setLoader,removeLoader} from './loader'
 import setAuthToken from '../utils/setAuthToken';
 import utils from '../utils/utils.json';
+import {Navigate} from '../utils/Navigate';
 
-export const loadUser = () => async(dispatch) => {
+export const loadUser = (route) => async(dispatch) => {
         if(localStorage.token){
         setAuthToken(localStorage.token);
         }
@@ -14,14 +15,16 @@ export const loadUser = () => async(dispatch) => {
                 type:'Auth_Success',
                 payload : res
             });
+            Navigate(route);
         } catch (error) {
             console.log(error);
+            Navigate('/');
             removeLoader();
             if(error.response){
                 const errors = error.response.data.errors;
 
                 if (errors) {
-                    errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+                    errors.forEach((error) => dispatch(setAlert({msg:error.msg,alertType:'danger'})));
                 }
             }
             dispatch({
@@ -45,7 +48,7 @@ export const register = ({name,email,password}) => async(dispatch) => {
             type:'Register_Success',
             payload:res.data
         });
-        dispatch(loadUser());
+        dispatch(loadUser('/home'));
     } catch (err) {
         console.log(err);
         removeLoader();
@@ -77,7 +80,7 @@ export const login = ({email,password}) => async(dispatch) => {
             type:'Login_Success',
             payload:res.data
         });
-        dispatch(loadUser());
+        dispatch(loadUser('/home'));
     } catch (error) {
         console.log(error);
         removeLoader();
