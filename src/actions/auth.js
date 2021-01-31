@@ -34,7 +34,7 @@ export const loadUser = (route) => async(dispatch) => {
 }
 
 export const register = ({name,email,password}) => async(dispatch) => {
-    setLoader();
+    dispatch(setLoader());
     const config = {
 		headers: {
             'Content-Type': 'application/json',
@@ -48,10 +48,11 @@ export const register = ({name,email,password}) => async(dispatch) => {
             type:'Register_Success',
             payload:res.data
         });
+        dispatch(removeLoader());
         dispatch(loadUser('/home'));
     } catch (err) {
         console.log(err);
-        removeLoader();
+        dispatch(removeLoader());
         if(err.response){
             const errors = err.response.data.errors;
 
@@ -66,11 +67,10 @@ export const register = ({name,email,password}) => async(dispatch) => {
 }
 
 export const login = ({email,password}) => async(dispatch) => {
-    setLoader();
+    dispatch(setLoader());
     const config = {
 		headers: {
-            'Content-Type': 'application/json',
-            "Access-Control-Allow-Origin": "*"
+            'Content-Type': 'application/json'
         }
     };
     const body = JSON.stringify({email,password});
@@ -80,10 +80,11 @@ export const login = ({email,password}) => async(dispatch) => {
             type:'Login_Success',
             payload:res.data
         });
+        dispatch(removeLoader());
         dispatch(loadUser('/home'));
     } catch (error) {
         console.log(error);
-        removeLoader();
+        dispatch(removeLoader());
         if(error.response){
             const errors = error.response.data.errors;
 

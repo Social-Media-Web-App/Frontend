@@ -1,6 +1,6 @@
 export const setLoader = () => async(dispatch) => {
     dispatch({
-        type:'Show_Loader'
+        type:'Set_Loader'
     });
 };
 
