@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navbar,Nav,NavDropdown,Image} from 'react-bootstrap';
+import {Navbar,Nav,NavDropdown,Image,Dropdown} from 'react-bootstrap';
 import {Link,withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {logout} from '../actions/auth'
@@ -26,15 +26,20 @@ const NavigationBar = ({isAuthenticated,user,logout,history}) => {
         {
         isAuthenticated && user &&
         <Navbar.Collapse className="justify-content-end " style={{marginRight:'1rem'}}>
-          <NavDropdown className="rounded-pill text-white" style={{backgroundColor:'yellowgreen'}}  title={<b style={{fontWeight:'bold'}}>
-            Signed in as : {user.name}&nbsp;&nbsp;<Image rounded style={{width:'30px',height:'30px'}} src={user.avatar?user.avatar:userImg} />&nbsp;
-            </b>} id="collasible-nav-dropdown">
-          <NavDropdown.Item ><Link style={{...linkStyle,color:'black'}} to="/settings">Settings</Link></NavDropdown.Item>
-          <NavDropdown.Divider />
-          <NavDropdown.Item onClick={() => logout(history)} href="#">Logout</NavDropdown.Item>
-          </NavDropdown>   
+        <Dropdown>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+             <b style={{fontWeight:'bold'}}>
+            Signed in as : {user.name}&nbsp;&nbsp;<Image rounded style={{width:'32px',height:'32px'}} src={user.avatar?user.avatar:userImg} />&nbsp;
+            </b>
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item href="/settings"><Link style={{...linkStyle,color:'black',width:'100%',height:'100%'}} to="/settings">Settings</Link></Dropdown.Item>
+            <Dropdown.Item onClick={() => logout(history)} href="#">Logout</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
         </Navbar.Collapse>
         }
+
       </Navbar>
     );
 }

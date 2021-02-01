@@ -1,0 +1,97 @@
+import axios from 'axios'
+import {setAlert} from './alert'
+import {setLoader,removeLoader} from './loader'
+import utils from '../utils/utils.json';
+import {loadUser} from './auth'
+
+export const addPost = ({postText,postImage}) => async(dispatch) => {
+    dispatch(setLoader());
+    const formData = new FormData();
+    if(postText !== ''){
+        /* console.log("reached add post text"); */
+        formData.append(
+            "text",
+            postText
+          );
+    }
+    if(postImage !== null){
+       /*  console.log("reached add post iage"); */
+        formData.append(
+            "image",
+            postImage,
+            postImage.name
+          );
+    }
+    try {
+        const uploadRes = await axios.post(`${utils.BACKEND_URL}/post`,formData);
+        dispatch(removeLoader());
+        dispatch(showPost());
+        dispatch(loadUser('/home'));
+        dispatch(setAlert({msg:uploadRes.data, alertType:'success'}));
+    } catch (error) {
+      dispatch(removeLoader());
+      if(error.response){
+          const errors = error.response.data.errors;
+
+          if (errors) {
+              errors.forEach((error) => dispatch(setAlert({msg:error.msg,alertType:'danger'})));
+          }
+      }
+    }
+}
+
+export const showPost = () => async(dispatch) => {
+    dispatch(setLoader());
+    try {
+        const posts = await axios.get(`${utils.BACKEND_URL}/post`);
+        /* console.log(posts); */
+        dispatch(removeLoader());
+        dispatch({
+            type:'Show_Post',
+            payload:posts.data
+        });
+    } catch (error) {
+        dispatch(removeLoader());
+        if(error.response){
+            const errors = error.response.data.errors;
+  
+            if (errors) {
+                errors.forEach((error) => dispatch(setAlert({msg:error.msg,alertType:'danger'})));
+            }
+        }
+    }
+}
+
+export const Like = ({like,postid}) => async(dispatch) => {
+   /*  console.log( "action:",like,postid); */
+        try {
+            const res = await axios.post(`${utils.BACKEND_URL}/post/like`,{like:like,postid:postid});
+            /* console.log(res.data); */
+            dispatch(showPost());
+        } catch (error) {
+            if(error.response){
+                const errors = error.response.data.errors;
+        
+                if (errors) {
+                    errors.forEach((error) => dispatch(setAlert({msg:error.msg,alertType:'danger'})));
+                }
+            }
+        }
+}
+
+export const Dislike = ({dislike,postid}) => async(dispatch) => {
+        try {
+            const res = await axios.post(`${utils.BACKEND_URL}/post/dislike`,{dislike:dislike,postid:postid});
+           /*  console.log(res.data); */
+            dispatch(showPost());
+        } catch (error) {
+            if(error.response){
+                const errors = error.response.data.errors;
+        
+                if (errors) {
+                    errors.forEach((error) => dispatch(setAlert({msg:error.msg,alertType:'danger'})));
+                }
+            }
+        }
+}
+
