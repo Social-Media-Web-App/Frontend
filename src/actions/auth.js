@@ -11,11 +11,12 @@ export const loadUser = (route) => async(dispatch) => {
         }
         try {
             const res = await axios.get(`${utils.BACKEND_URL}/auth`);
-            dispatch({
+            await dispatch({
                 type:'Auth_Success',
                 payload : res
             });
-            Navigate(route);
+            await Navigate(route);
+            dispatch(removeLoader());
         } catch (error) {
             console.log(error);
             Navigate('/');
@@ -48,7 +49,7 @@ export const register = ({name,email,password}) => async(dispatch) => {
             type:'Register_Success',
             payload:res.data
         });
-        dispatch(removeLoader());
+        /* dispatch(removeLoader()); */
         dispatch(loadUser('/home'));
     } catch (err) {
         console.log(err);
@@ -80,7 +81,7 @@ export const login = ({email,password}) => async(dispatch) => {
             type:'Login_Success',
             payload:res.data
         });
-        dispatch(removeLoader());
+        /* dispatch(removeLoader()); */
         dispatch(loadUser('/home'));
     } catch (error) {
         console.log(error);

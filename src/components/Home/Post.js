@@ -19,13 +19,13 @@ const Post = ({isAuthenticated,user,index,post,Like,Dislike,AddComment}) => {
       post.comments.reverse();
     },[]) */
     useEffect(() => {
-      if(post.likes.find((id) => id === user._id)){
+      if(user && post && post.likes && post.likes.find((id) => id === user._id)){
         setLike(true);
       }
       else
       setLike(false);
 
-      if(post.dislikes.find((id) => id === user._id)){
+      if(user && post && post.dislikes && post.dislikes.find((id) => id === user._id)){
         setDislike(true);
       }
       else
