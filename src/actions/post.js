@@ -44,6 +44,7 @@ export const showPost = () => async(dispatch) => {
     dispatch(setLoader());
     try {
         const posts = await axios.get(`${utils.BACKEND_URL}/post`);
+        await posts.data.map((post) => post.comments.reverse())
         /* console.log(posts); */
         dispatch(removeLoader());
         dispatch({
@@ -95,3 +96,19 @@ export const Dislike = ({dislike,postid}) => async(dispatch) => {
         }
 }
 
+export const AddComment = ({comment,postid}) => async(dispatch) => {
+  /*   console.log({comment,postid}); */
+    try {
+          const res = await axios.post(`${utils.BACKEND_URL}/post/addcomment`,{comment:comment,postid:postid});
+          /* console.log(res.data); */
+          dispatch(showPost());
+    } catch (error) {
+        if(error.response){
+            const errors = error.response.data.errors;
+    
+            if (errors) {
+                errors.forEach((error) => dispatch(setAlert({msg:error.msg,alertType:'danger'})));
+            }
+        }
+    }
+}
