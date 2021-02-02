@@ -8,9 +8,10 @@ import msToTime from '../../utils/msToTime'
 
 import {Dislike,Like} from '../../actions/post'
 import {AddComment} from '../../actions/post'
+import {getProfile} from '../../actions/profile'
 import Comment from './Comment';
 
-const Post = ({isAuthenticated,user,index,post,Like,Dislike,AddComment}) => {
+const Post = ({isAuthenticated,user,index,post,Like,Dislike,AddComment,id}) => {
     const [currTime,setCurrentTime] = useState(Date.now());
     const [like,setLike] = useState(false);
     const [dislike,setDislike] = useState(false);
@@ -27,7 +28,6 @@ const Post = ({isAuthenticated,user,index,post,Like,Dislike,AddComment}) => {
       }
       else
       setDislike(false);
-
     },[post])
     useEffect(() => {
         setInterval(() => setCurrentTime(Date.now()),100000);
@@ -60,7 +60,7 @@ const Post = ({isAuthenticated,user,index,post,Like,Dislike,AddComment}) => {
             <InputGroup.Prepend>
             <InputGroup.Text id="basic-addon1" 
             style={{backgroundColor:like?"lightgreen":'#E9ECEF',cursor:'pointer',pointerEvents:dislike?'none':'auto'}} 
-            onClick={() =>  Like({like:!like,postid:post._id})} >
+            onClick={() =>  Like({like:!like,postid:post._id,id})} >
               <FaThumbsUp  size={like?24:22} style={{color:like?'darkgreen':'yellowgreen'}} />
               <b >&nbsp;{post.likes.length}&nbsp;&nbsp;{post.likes.length>1?'likes':'like'}</b>
               </InputGroup.Text>
@@ -69,7 +69,7 @@ const Post = ({isAuthenticated,user,index,post,Like,Dislike,AddComment}) => {
             <InputGroup.Prepend>
             <InputGroup.Text id="basic-addon1" 
             style={{backgroundColor:dislike?"pink":'#E9ECEF',cursor:'pointer',pointerEvents:like?'none':'auto'}} 
-            onClick={() => Dislike({dislike:!dislike,postid:post._id})} >
+            onClick={() => Dislike({dislike:!dislike,postid:post._id,id})} >
               <FaThumbsDown size={dislike?24:22} style={{color:dislike?'red':'pink'}} />
               <b>&nbsp;{post.dislikes.length}&nbsp;&nbsp;{post.dislikes.length>1?'dislikes':'dislike'}</b>
               </InputGroup.Text>
@@ -85,7 +85,7 @@ const Post = ({isAuthenticated,user,index,post,Like,Dislike,AddComment}) => {
             />
             <InputGroup.Append>
             <InputGroup.Text onClick={() => {
-            AddComment({comment,postid:post._id})
+            AddComment({comment,postid:post._id,id})
             setComment('')
           }} style={{color:'white',cursor:'pointer'}} className="bg-primary">Post</InputGroup.Text>
             </InputGroup.Append>

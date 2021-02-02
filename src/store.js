@@ -9,7 +9,8 @@ const initialState = {};
 const persistConfig = {
     key: 'auth',
     storage: storage,
-    whitelist: ['auth'] 
+    whitelist: ['auth'],
+    blacklist:['search','alert']
   };
 
 const pReducer = persistReducer(persistConfig, reducers);

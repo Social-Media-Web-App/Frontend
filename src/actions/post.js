@@ -3,6 +3,7 @@ import {setAlert} from './alert'
 import {setLoader,removeLoader} from './loader'
 import utils from '../utils/utils.json';
 import {loadUser} from './auth'
+import {getProfile} from './profile'
 
 export const addPost = ({postText,postImage}) => async(dispatch) => {
     dispatch(setLoader());
@@ -63,12 +64,15 @@ export const showPost = () => async(dispatch) => {
     }
 }
 
-export const Like = ({like,postid}) => async(dispatch) => {
+export const Like = ({like,postid,id}) => async(dispatch) => {
    /*  console.log( "action:",like,postid); */
         try {
             const res = await axios.post(`${utils.BACKEND_URL}/post/like`,{like:like,postid:postid});
             /* console.log(res.data); */
             dispatch(showPost());
+            if(id){
+                dispatch(getProfile({id}));
+            }
         } catch (error) {
             if(error.response){
                 const errors = error.response.data.errors;
@@ -80,11 +84,14 @@ export const Like = ({like,postid}) => async(dispatch) => {
         }
 }
 
-export const Dislike = ({dislike,postid}) => async(dispatch) => {
+export const Dislike = ({dislike,postid,id}) => async(dispatch) => {
         try {
             const res = await axios.post(`${utils.BACKEND_URL}/post/dislike`,{dislike:dislike,postid:postid});
            /*  console.log(res.data); */
             dispatch(showPost());
+            if(id){
+                dispatch(getProfile({id}));
+            }
         } catch (error) {
             if(error.response){
                 const errors = error.response.data.errors;
@@ -96,12 +103,15 @@ export const Dislike = ({dislike,postid}) => async(dispatch) => {
         }
 }
 
-export const AddComment = ({comment,postid}) => async(dispatch) => {
+export const AddComment = ({comment,postid,id}) => async(dispatch) => {
   /*   console.log({comment,postid}); */
     try {
           const res = await axios.post(`${utils.BACKEND_URL}/post/addcomment`,{comment:comment,postid:postid});
           /* console.log(res.data); */
           dispatch(showPost());
+          if(id){
+            dispatch(getProfile({id}));
+        }
     } catch (error) {
         if(error.response){
             const errors = error.response.data.errors;

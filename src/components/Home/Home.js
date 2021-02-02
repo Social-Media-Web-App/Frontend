@@ -13,7 +13,7 @@ const Home = ({isAuthenticated}) => {
     return (
             <div>
               <AddPost/>
-              <br/>
+              <hr style={{border:'0.7px solid lightblue',marginTop:'1.5rem',marginBottom:'1.5rem'}} />
               <ShowPost/>
             </div>
     );

@@ -16,9 +16,9 @@ const NavigationBar = ({isAuthenticated,user,logout,history}) => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            { !isAuthenticated?<Nav.Link><Link style={linkStyle} to="/auth">Auth</Link></Nav.Link>:null}
-            { isAuthenticated?<Nav.Link ><Link style={linkStyle} to="/friends">Friends</Link></Nav.Link>:null}
-            { isAuthenticated?<Nav.Link ><Link style={linkStyle} to="/requests">Requests</Link></Nav.Link>:null}
+            { !isAuthenticated?<Nav.Link><Link style={linkStyle} to="/auth">Login/Register</Link></Nav.Link>:null}
+            { isAuthenticated?<Nav.Link ><Link style={linkStyle} to="/following">Following</Link></Nav.Link>:null}
+            { isAuthenticated?<Nav.Link ><Link style={linkStyle} to="/followers">Followers</Link></Nav.Link>:null}
             { isAuthenticated?<Nav.Link ><Link style={linkStyle} to="/find">Find People</Link></Nav.Link>:null}
             { isAuthenticated?<Nav.Link ><Link style={linkStyle} to="/chat">Chat</Link></Nav.Link>:null}
           </Nav>

@@ -18,14 +18,14 @@ const AuthForm = ({type,onsubmit}) => {
                     <InputGroup.Prepend>
                     <InputGroup.Text id="basic-addon1"><BiText/></InputGroup.Text>
                     </InputGroup.Prepend>
-                    <Form.Control required="true" type="text" placeholder="Enter Name" value={name} onChange={(event) => setName(event.target.value)} />
+                    <Form.Control style={{textTransform:'capitalize'}} required="true" type="text" placeholder="Enter Name" value={name} onChange={(event) => setName(event.target.value)} />
                 </InputGroup>:null
             } 
                 <InputGroup className="mb-3">
                     <InputGroup.Prepend>
                     <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
                     </InputGroup.Prepend>
-                <Form.Control required="true" type="email" placeholder="Enter email" value={email} onChange={(event) => setEmail(event.target.value)} />
+                <Form.Control style={{textTransform:'lowercase'}} required="true" type="email" placeholder="Enter email" value={email} onChange={(event) => setEmail(event.target.value)} />
                 </InputGroup>
 
                 <InputGroup className="mb-3">

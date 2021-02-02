@@ -11,6 +11,10 @@ export const loadUser = (route) => async(dispatch) => {
         }
         try {
             const res = await axios.get(`${utils.BACKEND_URL}/auth`);
+            res.data.name = res.data.name.toLowerCase()
+            .split(' ')
+            .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+            .join(' ');
             await dispatch({
                 type:'Auth_Success',
                 payload : res
@@ -35,6 +39,7 @@ export const loadUser = (route) => async(dispatch) => {
 }
 
 export const register = ({name,email,password}) => async(dispatch) => {
+    name = name.toLowerCase();
     dispatch(setLoader());
     const config = {
 		headers: {

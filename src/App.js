@@ -11,6 +11,8 @@ import Auth from './components/Auth/Auth';
 import Landing from './components/Landing/Landing';
 import NavigationBar from './components/NavigationBar';
 import Settings from './components/Settings/Settings';
+import Find from './components/Find/Find';
+import Profile from './components/Profile/Profile'
 
 import {store,persistor} from './store'
 import setAuthToken from './utils/setAuthToken';
@@ -37,6 +39,8 @@ function App(){
 							<Route path='/auth' component={Auth} />
 							<Route path='/home' component={Home} />
 							<Route path='/settings' component={Settings} />
+							<Route path='/find' component={Find} />
+							<Route path='/profile/:id' component={Profile} />
 						</Switch>
 					</section>
 				</Fragment>
