@@ -17,8 +17,7 @@ const NavigationBar = ({isAuthenticated,user,logout,history}) => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             { !isAuthenticated?<Nav.Link><Link style={linkStyle} to="/auth">Login/Register</Link></Nav.Link>:null}
-            { isAuthenticated?<Nav.Link ><Link style={linkStyle} to="/following">Following</Link></Nav.Link>:null}
-            { isAuthenticated?<Nav.Link ><Link style={linkStyle} to="/followers">Followers</Link></Nav.Link>:null}
+            { isAuthenticated?<Nav.Link ><Link style={linkStyle} to="/connection">Connections</Link></Nav.Link>:null}
             { isAuthenticated?<Nav.Link ><Link style={linkStyle} to="/find">Find People</Link></Nav.Link>:null}
             { isAuthenticated?<Nav.Link ><Link style={linkStyle} to="/chat">Chat</Link></Nav.Link>:null}
           </Nav>

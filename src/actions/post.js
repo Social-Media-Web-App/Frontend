@@ -64,14 +64,14 @@ export const showPost = () => async(dispatch) => {
     }
 }
 
-export const Like = ({like,postid,id}) => async(dispatch) => {
+export const Like = ({like,postid,personid}) => async(dispatch) => {
    /*  console.log( "action:",like,postid); */
         try {
             const res = await axios.post(`${utils.BACKEND_URL}/post/like`,{like:like,postid:postid});
             /* console.log(res.data); */
             dispatch(showPost());
-            if(id){
-                dispatch(getProfile({id}));
+            if(personid){
+                dispatch(getProfile({personid}));
             }
         } catch (error) {
             if(error.response){
@@ -84,13 +84,13 @@ export const Like = ({like,postid,id}) => async(dispatch) => {
         }
 }
 
-export const Dislike = ({dislike,postid,id}) => async(dispatch) => {
+export const Dislike = ({dislike,postid,personid}) => async(dispatch) => {
         try {
             const res = await axios.post(`${utils.BACKEND_URL}/post/dislike`,{dislike:dislike,postid:postid});
            /*  console.log(res.data); */
             dispatch(showPost());
-            if(id){
-                dispatch(getProfile({id}));
+            if(personid){
+                dispatch(getProfile({personid}));
             }
         } catch (error) {
             if(error.response){
@@ -103,14 +103,14 @@ export const Dislike = ({dislike,postid,id}) => async(dispatch) => {
         }
 }
 
-export const AddComment = ({comment,postid,id}) => async(dispatch) => {
+export const AddComment = ({comment,postid,personid}) => async(dispatch) => {
   /*   console.log({comment,postid}); */
     try {
           const res = await axios.post(`${utils.BACKEND_URL}/post/addcomment`,{comment:comment,postid:postid});
           /* console.log(res.data); */
           dispatch(showPost());
-          if(id){
-            dispatch(getProfile({id}));
+          if(personid){
+            dispatch(getProfile({personid}));
         }
     } catch (error) {
         if(error.response){

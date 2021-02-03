@@ -11,19 +11,21 @@ import {AddComment} from '../../actions/post'
 import {getProfile} from '../../actions/profile'
 import Comment from './Comment';
 
-const Post = ({isAuthenticated,user,index,post,Like,Dislike,AddComment,id}) => {
+
+const Post = ({isAuthenticated,user,index,post,Like,Dislike,AddComment,personid}) => {
     const [currTime,setCurrentTime] = useState(Date.now());
     const [like,setLike] = useState(false);
     const [dislike,setDislike] = useState(false);
     const [comment,setComment] = useState('');
+
     useEffect(() => {
-      if(user && post && post.likes && post.likes.find((id) => id === user._id)){
+      if(user && post && post.likes && post.likes.find((personid) => personid === user._id)){
         setLike(true);
       }
       else
       setLike(false);
 
-      if(user && post && post.dislikes && post.dislikes.find((id) => id === user._id)){
+      if(user && post && post.dislikes && post.dislikes.find((personid) => personid === user._id)){
         setDislike(true);
       }
       else
@@ -60,7 +62,7 @@ const Post = ({isAuthenticated,user,index,post,Like,Dislike,AddComment,id}) => {
             <InputGroup.Prepend>
             <InputGroup.Text id="basic-addon1" 
             style={{backgroundColor:like?"lightgreen":'#E9ECEF',cursor:'pointer',pointerEvents:dislike?'none':'auto'}} 
-            onClick={() =>  Like({like:!like,postid:post._id,id})} >
+            onClick={() =>  Like({like:!like,postid:post._id,personid})} >
               <FaThumbsUp  size={like?24:22} style={{color:like?'darkgreen':'yellowgreen'}} />
               <b >&nbsp;{post.likes.length}&nbsp;&nbsp;{post.likes.length>1?'likes':'like'}</b>
               </InputGroup.Text>
@@ -69,7 +71,7 @@ const Post = ({isAuthenticated,user,index,post,Like,Dislike,AddComment,id}) => {
             <InputGroup.Prepend>
             <InputGroup.Text id="basic-addon1" 
             style={{backgroundColor:dislike?"pink":'#E9ECEF',cursor:'pointer',pointerEvents:like?'none':'auto'}} 
-            onClick={() => Dislike({dislike:!dislike,postid:post._id,id})} >
+            onClick={() => Dislike({dislike:!dislike,postid:post._id,personid})} >
               <FaThumbsDown size={dislike?24:22} style={{color:dislike?'red':'pink'}} />
               <b>&nbsp;{post.dislikes.length}&nbsp;&nbsp;{post.dislikes.length>1?'dislikes':'dislike'}</b>
               </InputGroup.Text>
@@ -85,7 +87,7 @@ const Post = ({isAuthenticated,user,index,post,Like,Dislike,AddComment,id}) => {
             />
             <InputGroup.Append>
             <InputGroup.Text onClick={() => {
-            AddComment({comment,postid:post._id,id})
+            AddComment({comment,postid:post._id,personid})
             setComment('')
           }} style={{color:'white',cursor:'pointer'}} className="bg-primary">Post</InputGroup.Text>
             </InputGroup.Append>

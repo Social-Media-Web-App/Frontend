@@ -39,7 +39,10 @@ const AddPost = ({isAuthenticated,addPost}) => {
                         accept="image/png, image/jpeg, image/jpg"
                         style={{maxWidth:'15rem'}}
                         className="btn btn-dark"
-                        onChange={(event) => setPostImage(event.target.files[0])}
+                        onChange={(event) => {
+                            setPostImage(event.target.files[0]);
+                            event.target.value = null;
+                        }}
                     />
                 </InputGroup>
                 {postImage?<Card.Img className="rounded" style={{marginTop:'1rem',maxHeight:'12rem',maxWidth: '10rem'}} variant="top" src={postImage?URL.createObjectURL(postImage):null} thumbnail fluid />:null}
