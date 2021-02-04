@@ -5,7 +5,9 @@ import {connect} from 'react-redux'
 import userImg from '../../utils/user.png'
 import msToTime from '../../utils/msToTime'
 
-const Comment = ({isAuthenticated,comments}) => {
+import {deleteComment} from '../../actions/post'
+
+const Comment = ({isAuthenticated,comments,deleteComment}) => {
     const [showComment,setShowComment] = useState(false);
     const [currTime,setCurrentTime] = useState(Date.now());
     useEffect(() => {
@@ -30,12 +32,13 @@ const Comment = ({isAuthenticated,comments}) => {
                             <Image className="bg-primary" rounded style={{width:'35px',height:'35px'}} src={comment.userid && comment.userid.avatar?comment.userid.avatar:userImg} />&nbsp;&nbsp;
                                 <b style={{textTransform:'capitalize'}}>{comment.userid && comment.userid.name}</b>
                                 </Link>
-                                    <b style={{float:'right'}}>
+                                    <b style={{marginLeft:'1.2rem'}}>
                                     ~&nbsp;
                                     {
                                         msToTime(currTime - Date.parse(comment.date))
                                     }
                                     </b>
+                                    {/* <Button onClick={() => deleteComment({commentid:comment._id})} style={{float:'right',color:'white'}} className="btn-outline-primary">Delete</Button> */}
                                     <hr style={{marginTop:'0.3rem',marginBottom:'0.3rem',border:'0.6px solid #47D1CC'}} />
                                     <div style={{/* textAlign:'center' */}} >
                                         {comment.body}
@@ -54,4 +57,4 @@ const mapStateToProps = (state) => {
     }
   }
 
-export default connect(mapStateToProps,{})(Comment);
+export default connect(mapStateToProps,{deleteComment})(Comment);

@@ -7,10 +7,10 @@ const msToTime = (s) =>  {
     var hrs = (s - mins) / 60;
   
     if(hrs > 24){
-      if(hrs/24 > 1)
+      if(Math.floor(hrs/24) > 1)
       return hrs/24 + ' days ago';
       else
-      return hrs/24 + ' day ago'
+      return Math.floor(hrs/24) + ' day ago'
     }
     else if(hrs < 24 && hrs > 0){
       if(hrs > 1)

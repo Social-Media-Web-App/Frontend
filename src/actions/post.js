@@ -41,6 +41,45 @@ export const addPost = ({postText,postImage}) => async(dispatch) => {
     }
 }
 
+export const editPost = ({postid,postText,postImage,route}) => async(dispatch) => {
+    dispatch(setLoader());
+    const formData = new FormData();
+    formData.append(
+        "postid",
+        postid
+        );
+    if(postText !== ''){
+    formData.append(
+        "text",
+        postText
+    );
+    }
+   if(postImage != null){
+    formData.append(
+        "image",
+        postImage,
+        postImage.name
+    );
+   }
+    try {
+        const uploadRes = await axios.post(`${utils.BACKEND_URL}/post/edit`,formData);
+        dispatch(removeLoader());
+        dispatch(showPost());
+        dispatch(loadUser(`/home`));
+        dispatch({type:'Edit_Post_Alert',payload:uploadRes.data});
+        setTimeout(() =>  dispatch({type:'Edit_Post_Remove_Alert'}),2000)
+    } catch (error) {
+      dispatch(removeLoader());
+      if(error.response){
+          const errors = error.response.data.errors;
+
+          if (errors) {
+              errors.forEach((error) => dispatch(setAlert({msg:error.msg,alertType:'danger'})));
+          }
+      }
+    }
+}
+
 export const showPost = () => async(dispatch) => {
     dispatch(setLoader());
     try {
@@ -52,6 +91,26 @@ export const showPost = () => async(dispatch) => {
             type:'Show_Post',
             payload:posts.data
         });
+    } catch (error) {
+        dispatch(removeLoader());
+        if(error.response){
+            const errors = error.response.data.errors;
+  
+            if (errors) {
+                errors.forEach((error) => dispatch(setAlert({msg:error.msg,alertType:'danger'})));
+            }
+        }
+    }
+}
+
+export const deletePost = ({postid}) => async(dispatch) => {
+    dispatch(setLoader());
+    try {
+        const deleted = await axios.post(`${utils.BACKEND_URL}/post/delete`,{postid});
+        /* console.log(posts); */
+        dispatch(showPost());
+        dispatch(removeLoader());
+        dispatch(setAlert({msg:deleted.data,alertType:'success'}));
     } catch (error) {
         dispatch(removeLoader());
         if(error.response){
@@ -116,6 +175,29 @@ export const AddComment = ({comment,postid,personid}) => async(dispatch) => {
         if(error.response){
             const errors = error.response.data.errors;
     
+            if (errors) {
+                errors.forEach((error) => dispatch(setAlert({msg:error.msg,alertType:'danger'})));
+            }
+        }
+    }
+}
+
+export const deleteComment = ({commentid,personid}) => async(dispatch) => {
+    dispatch(setLoader());
+    try {
+        const deleted = await axios.post(`${utils.BACKEND_URL}/post/deletecomment`,{commentid});
+        /* console.log(posts); */
+        dispatch(showPost());
+        if(personid){
+            dispatch(getProfile({personid}));
+        }
+        dispatch(removeLoader());
+        dispatch(setAlert({msg:deleted.data,alertType:'success'}));
+    } catch (error) {
+        dispatch(removeLoader());
+        if(error.response){
+            const errors = error.response.data.errors;
+  
             if (errors) {
                 errors.forEach((error) => dispatch(setAlert({msg:error.msg,alertType:'danger'})));
             }

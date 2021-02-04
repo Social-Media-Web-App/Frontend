@@ -6,6 +6,7 @@ import Post from './Post'
 import Search from './Search'
 import Person from './Person'
 import Connection from './Connection'
+import EditPost from './EditPost'
 
 export default combineReducers({
     auth : Auth,
@@ -14,5 +15,6 @@ export default combineReducers({
     post:Post,
     search:Search,
     person:Person,
-    connection:Connection
+    connection:Connection,
+    editpost:EditPost
 })
