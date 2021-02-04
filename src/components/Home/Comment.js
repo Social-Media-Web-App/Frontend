@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import {Button,Alert,Image} from 'react-bootstrap'
-import {Redirect} from 'react-router-dom'
+import {Redirect,Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import userImg from '../../utils/user.png'
 import msToTime from '../../utils/msToTime'
@@ -26,8 +26,10 @@ const Comment = ({isAuthenticated,comments}) => {
                        return (
                         <Alert key={index} variant="info" style={{marginBottom:'0',marginTop:'0.3rem',marginLeft:'0.1rem',marginRight:'0.1rem'}}>
                             <div className="container">
+                            <Link key={index} to={`/profile/${comment.userid._id}`} style={{textDecoration:'none'}}>
                             <Image className="bg-primary" rounded style={{width:'35px',height:'35px'}} src={comment.userid && comment.userid.avatar?comment.userid.avatar:userImg} />&nbsp;&nbsp;
                                 <b style={{textTransform:'capitalize'}}>{comment.userid && comment.userid.name}</b>
+                                </Link>
                                     <b style={{float:'right'}}>
                                     ~&nbsp;
                                     {

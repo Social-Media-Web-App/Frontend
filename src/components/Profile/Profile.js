@@ -42,7 +42,7 @@ const Profile = ({isAuthenticated,match,getProfile,profile,user,followinfo,Follo
                         <Card.Title style={{textTransform:'capitalize'}}>{profile.name}</Card.Title>
                         <Card.Title>{profile.email}</Card.Title>
                         <b>( Joined {msToTime(currTime - Date.parse(profile.date))} )</b>
-                        <InputGroup className="mb-2 mt-3 row justify-content-md-center">
+                        <InputGroup className="mb-2 mt-3 row justify-content-center">
                         {
                         !followinfo || profile._id === user._id?null:
                         <div>

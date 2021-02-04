@@ -4,11 +4,12 @@ import {setLoader,removeLoader} from './loader'
 import utils from '../utils/utils.json';
 import {loadUser} from './auth'
 
-export const Followers = () => async(dispatch) => {
+export const getConnections = () => async(dispatch) => {
     dispatch(setLoader());
     try {
-        const result = await axios.get(`${utils.BACKEND_URL}/profile/followers`);
-        dispatch({type:'Set_Followers',payload:result.data});
+        const result = await axios.get(`${utils.BACKEND_URL}/profile/connections`);
+        /* console.log(result.data); */
+        dispatch({type:'Set_Connections',payload:result.data});
         dispatch(removeLoader());
     } catch (error) {
       if(error.response){
@@ -21,19 +22,3 @@ export const Followers = () => async(dispatch) => {
     }
 }
 
-export const Following = () => async(dispatch) => {
-    dispatch(setLoader());
-    try {
-        const result = await axios.get(`${utils.BACKEND_URL}/profile/following`);
-        dispatch({type:'Set_Following',payload:result.data});
-        dispatch(removeLoader());
-    } catch (error) {
-      if(error.response){
-          const errors = error.response.data.errors;
-          dispatch(removeLoader());
-          if (errors) {
-              errors.forEach((error) => dispatch(setAlert({msg:error.msg,alertType:'danger'})));
-          }
-      }
-    }
-}

@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import {Card,InputGroup,Image,FormControl,Alert} from 'react-bootstrap'
-import {Redirect} from 'react-router-dom'
+import {Redirect,Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {FaThumbsUp,FaThumbsDown} from 'react-icons/fa'
 import userImg from '../../utils/user.png'
@@ -39,8 +39,10 @@ const Post = ({isAuthenticated,user,index,post,Like,Dislike,AddComment}) => {
     return (
         <Card key={index} className="mb-5" style={{border:'2px solid blue'}}>
         <Card.Header style={{color:"white",fontWeight:'bold',backgroundColor:'navy'}} className="" as="h5">
+        <Link key={index} to={`/profile/${post.userid._id}`} style={{textDecoration:'none'}}>
         <Image className="bg-primary" rounded style={{width:'35px',height:'35px'}} src={post.userid.avatar?post.userid.avatar:userImg} />&nbsp;&nbsp;
-         <b style={{textTransform:'capitalize'}}>{post.userid.name}</b> 
+         <b style={{textTransform:'capitalize',color:'white'}}>{post.userid.name}</b> 
+         </Link>
             <b style={{float:'right'}}>
               ~&nbsp;
               {
