@@ -37,7 +37,7 @@ const Comment = ({isAuthenticated,comments,user,deleteComment,postid,personid}) 
                                     }
                                     </b>
                                     {
-                                    user._id === comment.userid._id?
+                                    user && (user._id === comment.userid._id)?
                                         <Button onClick={() => deleteComment({postid,commentid:comment._id,personid})} style={{float:'right',color:'white'}} className="btn-outline-primary">Delete</Button>
                                         :null
                                     }

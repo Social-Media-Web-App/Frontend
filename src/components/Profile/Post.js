@@ -52,7 +52,7 @@ const Post = ({isAuthenticated,user,index,post,Like,Dislike,AddComment,personid,
                  msToTime(currTime - Date.parse(post.date))
               }
             </b>
-            { user._id === post.userid._id?
+            { user && (user._id === post.userid._id)?
                 <DropdownButton
                 style={{float:'right'}}
                     as={InputGroup.Prepend}
