@@ -7,7 +7,7 @@ import msToTime from '../../utils/msToTime'
 
 import {deleteComment} from '../../actions/post'
 
-const Comment = ({isAuthenticated,comments,deleteComment}) => {
+const Comment = ({isAuthenticated,comments,deleteComment,postid,user}) => {
     const [showComment,setShowComment] = useState(false);
     const [currTime,setCurrentTime] = useState(Date.now());
     useEffect(() => {
@@ -38,7 +38,11 @@ const Comment = ({isAuthenticated,comments,deleteComment}) => {
                                         msToTime(currTime - Date.parse(comment.date))
                                     }
                                     </b>
-                                    {/* <Button onClick={() => deleteComment({commentid:comment._id})} style={{float:'right',color:'white'}} className="btn-outline-primary">Delete</Button> */}
+                                    {
+                                    user._id === comment.userid._id?
+                                        <Button onClick={() => deleteComment({postid,commentid:comment._id})} style={{float:'right',color:'white'}} className="btn-outline-primary">Delete</Button>
+                                        :null
+                                    }
                                     <hr style={{marginTop:'0.3rem',marginBottom:'0.3rem',border:'0.6px solid #47D1CC'}} />
                                     <div style={{/* textAlign:'center' */}} >
                                         {comment.body}
@@ -53,7 +57,8 @@ const Comment = ({isAuthenticated,comments,deleteComment}) => {
 
 const mapStateToProps = (state) => {
     return{
-      isAuthenticated:state.auth.isAuthenticated
+      isAuthenticated:state.auth.isAuthenticated,
+      user:state.auth.user
     }
   }
 

@@ -117,7 +117,7 @@ const Post = ({isAuthenticated,user,index,post,Like,Dislike,AddComment,personid,
             </InputGroup.Append>
         </InputGroup>   
         <hr style={{marginBottom:'0',marginTop:'0.5rem'}} />
-       <Comment comments={post.comments} />
+       <Comment personid={personid} postid={post._id} comments={post.comments} />
       </Card>
     );
 }

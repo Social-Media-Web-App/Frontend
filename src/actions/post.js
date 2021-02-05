@@ -182,17 +182,17 @@ export const AddComment = ({comment,postid,personid}) => async(dispatch) => {
     }
 }
 
-export const deleteComment = ({commentid,personid}) => async(dispatch) => {
+export const deleteComment = ({postid,commentid,personid}) => async(dispatch) => {
     dispatch(setLoader());
     try {
-        const deleted = await axios.post(`${utils.BACKEND_URL}/post/deletecomment`,{commentid});
+        const deleted = await axios.post(`${utils.BACKEND_URL}/post/deletecomment`,{postid,commentid});
         /* console.log(posts); */
         dispatch(showPost());
         if(personid){
             dispatch(getProfile({personid}));
         }
         dispatch(removeLoader());
-        dispatch(setAlert({msg:deleted.data,alertType:'success'}));
+       /*  dispatch(setAlert({msg:deleted.data,alertType:'success'})); */
     } catch (error) {
         dispatch(removeLoader());
         if(error.response){
