@@ -1,5 +1,5 @@
 {
-     "BACKEND_URL" : "http://localhost:5000/api",
+     "BACKEND_URL" : "https://getsociofy.herokuapp.com/api",
      "config"  : {
           "headers": {
               "Content-Type": "application/json"

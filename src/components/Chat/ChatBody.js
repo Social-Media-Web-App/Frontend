@@ -15,13 +15,13 @@ var connectionOptions =  {
     "transports" : ["websocket"]
 };
 
-const ChatBody = ({isAuthenticated,name,room,saveMessage,getMessage,chats}) => {
+const ChatBody = ({isAuthenticated,name,room,saveMessage,getMessage,chats,user}) => {
     const[message,setMessage] = useState(null);
     const[messages,setMessages] = useState([]);
 
     /// chat configs
 
-    const ENDPOINT = 'http://localhost:5000/';
+    const ENDPOINT = 'https://getsociofy.herokuapp.com/';
     /* console.log(chats); */
     useEffect(() => {
         getMessage({room});
@@ -36,7 +36,7 @@ const ChatBody = ({isAuthenticated,name,room,saveMessage,getMessage,chats}) => {
     useEffect(() => {
         socket = io.connect(ENDPOINT,connectionOptions);
         console.log("reached connect");
-        socket.emit('join',{name,room},() => {
+        socket.emit('join',{name:user.name,room},() => {
 
         });
         return () => {
@@ -62,7 +62,7 @@ const ChatBody = ({isAuthenticated,name,room,saveMessage,getMessage,chats}) => {
         event.preventDefault();
         if(message){
             socket.emit('sendMessage',message,() => setMessage(''));
-            saveMessage({name,room,text:message});
+            saveMessage({name:user.name,room,text:message});
         }
     }
 
@@ -93,6 +93,7 @@ const ChatBody = ({isAuthenticated,name,room,saveMessage,getMessage,chats}) => {
                                 aria-describedby="basic-addon2"
                                 value={message}
                                 onChange={(event) => setMessage(event.target.value)}
+                                onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}
                                 />
                                 <InputGroup.Append>
                                 <InputGroup.Text onClick={(event) => sendMessage(event)} style={{cursor:'pointer'}} className="btn-outline-primary" id="basic-addon2">Send</InputGroup.Text>
@@ -109,6 +110,7 @@ const ChatBody = ({isAuthenticated,name,room,saveMessage,getMessage,chats}) => {
 const mapStateToProps = (state) => {
     return{
       isAuthenticated:state.auth.isAuthenticated,
+      user:state.auth.user,
       chats:state.chat.chats
     }
   }

@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import {logout} from '../actions/auth'
 import userImg from '../utils/user.png'
 import {setNavigator} from '../utils/Navigate';
+import {TiSocialLastFm} from 'react-icons/ti'
 
 const linkStyle = {textDecoration: 'none',color: 'white' };
 
@@ -12,7 +13,7 @@ const NavigationBar = ({isAuthenticated,user,logout,history}) => {
    setNavigator(history);
     return (
         <Navbar bg="dark" variant="dark" expand="lg">
-        <Navbar.Brand><Link style={linkStyle} to="/home">Social Media</Link></Navbar.Brand>
+        <Navbar.Brand><Link style={linkStyle} to="/home" style={{fontWeight:'bold',color:'lightblue',textDecoration:'none'}}><TiSocialLastFm  color="lightblue" size={40}/>&nbsp;Sociofy</Link></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
