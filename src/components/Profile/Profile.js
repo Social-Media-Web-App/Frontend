@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import userImg from '../../utils/user.png'
 import msToTime from '../../utils/msToTime'
 
-import {getProfile,Follow,Unfollow} from '../../actions/profile'
+import {getProfile,Follow,Unfollow,removeFollower} from '../../actions/profile'
 import Post from './Post'
 
 const Profile = ({isAuthenticated,match,getProfile,profile,user,followinfo,Follow,Unfollow,removeFollower}) => {
@@ -86,4 +86,4 @@ const Profile = ({isAuthenticated,match,getProfile,profile,user,followinfo,Follo
         }
     }
 
-    export default connect(mapStateToProps,{getProfile,Follow,Unfollow})(Profile);
+    export default connect(mapStateToProps,{getProfile,Follow,Unfollow,removeFollower})(Profile);
