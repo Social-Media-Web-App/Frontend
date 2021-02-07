@@ -15,7 +15,7 @@ const Find = ({isAuthenticated,Search,searchResult}) => {
     return (
             <div style={{marginTop:(searchResult && searchResult.length>0)?'5%':'15%'}}>
               <div style={{textAlign:'center',marginBottom:'2rem'}}>
-              <Badge style={{fontSize:'7vh',fontWeight:'bold'}} variant="primary">Search and Find People</Badge>
+              <Badge style={{fontSize:'5vh',fontWeight:'bold'}} variant="primary">Search and Find People</Badge>
               </div>
               <InputGroup className="mb-3">
               <InputGroup.Prepend>

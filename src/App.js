@@ -15,6 +15,7 @@ import Find from './components/Find/Find';
 import Profile from './components/Profile/Profile'
 import Connection from './components/Connection/Connection'
 import Chat from './components/Chat/Chat'
+import About from './components/About/About'
 
 import {store,persistor} from './store'
 import setAuthToken from './utils/setAuthToken';
@@ -45,6 +46,7 @@ function App(){
 							<Route path='/profile/:personid' component={Profile} />
 							<Route path='/connection' component={Connection} />
 							<Route path='/chat' component={Chat} />
+							<Route path='/about' component={About} />
 						</Switch>
 					</section>
 				</Fragment>

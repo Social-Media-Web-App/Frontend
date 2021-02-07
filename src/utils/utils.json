@@ -1,8 +1,15 @@
 {
      "BACKEND_URL" : "https://getsociofy.herokuapp.com/api",
+     "LOCALHOST_BACKEND_URL":"http://localhost:5000/api",
+     "IMAGE_UPLOAD_URL": "https://api.cloudinary.com/v1_1/gadarsh555/image/upload",
      "config"  : {
           "headers": {
               "Content-Type": "application/json"
           }
-      }
+      },
+      "uploadConfig"  : {
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+        }
+    }
 }

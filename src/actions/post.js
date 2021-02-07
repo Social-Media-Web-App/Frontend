@@ -6,29 +6,23 @@ import {loadUser} from './auth'
 import {getProfile} from './profile'
 
 export const addPost = ({postText,postImage}) => async(dispatch) => {
-    dispatch(setLoader());
-    const formData = new FormData();
-    if(postText !== ''){
-        /* console.log("reached add post text"); */
-        formData.append(
-            "text",
-            postText
-          );
-    }
-    if(postImage !== null){
-       /*  console.log("reached add post iage"); */
-        formData.append(
-            "image",
-            postImage,
-            postImage.name
-          );
-    }
+    dispatch(setLoader()); 
+    var imageUrl = null;
     try {
-        const uploadRes = await axios.post(`${utils.BACKEND_URL}/post`,formData);
+        if(postImage !== null){
+            const formData = new FormData();
+            formData.append("file",postImage);
+            formData.append('upload_preset', 'tfxiqkad');
+            delete axios.defaults.headers.common['x-auth-token'];
+            const uploadRes = await axios.post(utils.IMAGE_UPLOAD_URL,formData);
+            axios.defaults.headers.common['x-auth-token'] = localStorage.token;
+            imageUrl = uploadRes.data.secure_url;
+        }
+        const savePost = await axios.post(`${utils.BACKEND_URL}/post`,{imageUrl,text:postText});
         dispatch(removeLoader());
         dispatch(showPost());
         dispatch(loadUser('/home'));
-        dispatch(setAlert({msg:uploadRes.data, alertType:'success'}));
+        dispatch(setAlert({msg:savePost.data, alertType:'success'}));
     } catch (error) {
       dispatch(removeLoader());
       if(error.response){
@@ -43,26 +37,22 @@ export const addPost = ({postText,postImage}) => async(dispatch) => {
 
 export const editPost = ({postid,postText,postImage,route}) => async(dispatch) => {
     dispatch(setLoader());
-    const formData = new FormData();
-    formData.append(
-        "postid",
-        postid
-        );
-    if(postText !== ''){
-    formData.append(
-        "text",
-        postText
-    );
+    var imageUrl = null;
+    var text = null;
+    if(postText !== '' && postText !== null){
+        text = postText
     }
-   if(postImage != null){
-    formData.append(
-        "image",
-        postImage,
-        postImage.name
-    );
-   }
     try {
-        const uploadRes = await axios.post(`${utils.BACKEND_URL}/post/edit`,formData);
+        if(postImage !== null){
+            const formData = new FormData();
+            formData.append("file",postImage);
+            formData.append('upload_preset', 'tfxiqkad');
+            delete axios.defaults.headers.common['x-auth-token'];
+            const uploadRes = await axios.post(utils.IMAGE_UPLOAD_URL,formData);
+            axios.defaults.headers.common['x-auth-token'] = localStorage.token;
+            imageUrl = uploadRes.data.secure_url;
+        }
+        const uploadRes = await axios.post(`${utils.BACKEND_URL}/post/edit`,{imageUrl,text,postid});
         dispatch(removeLoader());
         dispatch(showPost());
         dispatch(loadUser(`/home`));

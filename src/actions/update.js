@@ -7,16 +7,19 @@ import {loadUser} from './auth'
 export const uploadImage = (avatar) => async(dispatch) => {
     dispatch(setLoader());
     const formData = new FormData();
-      formData.append(
-        "avatar",
-        avatar,
-        avatar.name
-      );
+    formData.append('file', avatar);
+    formData.append('upload_preset', 'tfxiqkad');
+  /*   console.log("reached here to upload image :",avatar); */
+    delete axios.defaults.headers.common['x-auth-token'];
       try {
-          const uploadRes = await axios.post(`${utils.BACKEND_URL}/update/avatar`,formData);
+          const uploadRes = await axios.post(utils.IMAGE_UPLOAD_URL,formData);
+          axios.defaults.headers.common['x-auth-token'] = localStorage.token;
+          const imageUrl = uploadRes.data.secure_url;
+         /*  console.log("IMAGE UPLOADED :",imageUrl); */
+          const saveUrl = await axios.post(`${utils.BACKEND_URL}/update/avatar`,{imageUrl});
           dispatch(removeLoader());
           dispatch(loadUser('/settings'));
-          dispatch(setAlert({msg:uploadRes.data, alertType:'success'}));
+          dispatch(setAlert({msg:saveUrl.data, alertType:'success'}));
       } catch (error) {
         dispatch(removeLoader());
         if(error.response){

@@ -112,7 +112,7 @@ const Settings = ({user,isAuthenticated,uploadImage,updateUser}) => {
             </InputGroup>
             <InputGroup className="mb-3">
                 <InputGroup.Prepend>
-                <InputGroup.Text id="basic-addon1">Enter Current Password to Update User Details</InputGroup.Text>
+                <InputGroup.Text id="basic-addon1">Enter Current Password</InputGroup.Text>
                 </InputGroup.Prepend>
                 <FormControl
                 value={currentPassword}

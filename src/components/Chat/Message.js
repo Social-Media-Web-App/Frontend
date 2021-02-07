@@ -13,15 +13,15 @@ const Message = ({isAuthenticated,messages,user}) => {
             
             <div className="container" style={{height:'15rem',overflowX:'hidden'}}>
                 <div className="col">
-                <ScrollToBottom style={{height:'70vh'}}>
+                <ScrollToBottom /* style={{height:'70vh'}} */>
               {
                 (messages && messages.length>0)?
                     messages.map((msg,index) => {
                         return (
-                    <Alert className="row"  style={{float:msg.user === 'admin'?'none':username === msg.user?'right':'left',margin:'0.5rem'}} variant={msg.user === 'admin'?'dark':username === msg.user?"primary":"danger"} >
+                    <Alert className="row"  style={{width:"60%",float:msg.user === 'admin'?'none':username === msg.user?'right':'left',margin:'5px'}} variant={msg.user === 'admin'?'dark':username === msg.user?"primary":"danger"} >
                         <div>
                         <b style={{textTransform:'capitalize'}}>{msg.user}</b>
-                        <p style={{width:'8rem'}}>{msg.text}</p>
+                        <p style={{width:'95%'}}>{msg.text}</p>
                         </div>
                     <br/>
                     </Alert>

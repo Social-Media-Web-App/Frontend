@@ -21,6 +21,7 @@ const NavigationBar = ({isAuthenticated,user,logout,history}) => {
             { isAuthenticated?<Nav.Link ><Link style={linkStyle} to="/connection">Connections</Link></Nav.Link>:null}
             { isAuthenticated?<Nav.Link ><Link style={linkStyle} to="/find">Find People</Link></Nav.Link>:null}
             { isAuthenticated?<Nav.Link ><Link style={linkStyle} to="/chat">Chat</Link></Nav.Link>:null}
+            <Nav.Link><Link style={linkStyle} to="/about"><b>About the Developer</b></Link></Nav.Link>
           </Nav>
         </Navbar.Collapse>
         {

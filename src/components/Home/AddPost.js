@@ -13,7 +13,7 @@ const AddPost = ({isAuthenticated,addPost}) => {
       }
     return (
          <Card className="border border-dark" >
-            <Card.Header style={{backgroundColor:'blue',color:'white',fontWeight:'bold'}} className="border-bottom border-dark" as="h5">Post your Thoughts and Images</Card.Header>
+            <Card.Header style={{backgroundColor:'blue',color:'white',fontWeight:'bold'}} className="border-bottom border-dark" as="h5">Post your Thoughts </Card.Header>
             <Form encType="multipart/form-data">
             <Card.Body>
                 <Card.Title>Say Something</Card.Title>

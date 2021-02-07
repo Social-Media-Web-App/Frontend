@@ -75,7 +75,7 @@ const ChatBody = ({isAuthenticated,name,room,saveMessage,getMessage,chats,user})
       }
     return (
             <div>
-               <Card className="mb-5" style={{ width: '80vh',border:'0.7px solid lightblue' }}>
+               <Card className="mb-5" style={{ width: '70vh',border:'0.7px solid lightblue' }}>
                 {
                     name && room?
                         <Card.Body>
